@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="agecalculate.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Age Calculator</h2>
+ 
+	
+    <label for="day">Date:</label>
+    <input type="number" id="day" name="day" min="1" max="31"  required>
+
+    
+    <label for="month">Month:</label>
+    <input type="number" id="month" name="month" min="1" max="12" maxlength="2" required>
+    
+    <label for="year">Year:</label>
+    <input type="number" id="year" name="year" min="1900" max="2099" maxlength="4" required>
+    
+
+		<br><br>
+		<input type="button" value="Calculate Age" onclick="calculateAge()">
+
+    <h1>your age is <span id="yourYear">_</span> year <span id="yourMonth">_</span> Month <span id="yourDay">_</span> Days</h1>
+</body>
+
+<script>
+   const dayInput = document.getElementById('day');
+
+dayInput.addEventListener('change', () => {
+  const dayValue = parseInt(dayInput.value);
+  if (dayValue > 31 || dayValue < 1) {
+    alert('Please enter a day between 1 and 31.');
+    dayInput.value = '';
+  }
+});
+
+const monthInput = document.getElementById('month');
+
+monthInput.addEventListener('change', () => {
+  const monthValue = parseInt(monthInput.value);
+  
+  if (monthValue > 12 || monthValue <1 ) {
+    alert('Please enter a month between 1 and 12');
+    monthInput.value = '';
+  }
+});
+
+   
+    const calculateAge = () =>{
+         var day = parseInt(document.getElementById("day").value);
+        var month = parseInt(document.getElementById("month").value);
+        var year = parseInt(document.getElementById("year").value);
+        
+  if (month > 12 || month < 1) {
+    alert("Please enter a valid month (1-12)");
+    return;
+  }
+
+
+       const now = new Date().toJSON().slice(0,10).split('-');
+       const currDay = now[2];
+       const currMonth = now[1];
+       const currYear =  now[0]; 
+
+       let personYear = currYear - year;
+       let personMonth = currMonth - month;
+        let personDay = currDay - day;
+        let lastDay;
+
+if (personMonth == 1) {
+  lastDay = 31;
+} else if (personMonth == 2) {
+  if (personYear % 4 == 0 && (personYear % 100 != 0 || personYear % 400 == 0)) {
+    lastDay = 29; 
+  } else {
+    lastDay = 28; 
+  }
+} else if (personMonth == 3) {
+  lastDay = 31;
+} else if (personMonth == 4) {
+  lastDay = 30;
+} else if (personMonth == 5) {
+  lastDay = 31;
+} else if (personMonth == 6) {
+  lastDay = 30;
+} else if (personMonth == 7) {
+  lastDay = 31;
+} else if (personMonth == 8) {
+lastDay = 31;
+} else if (personMonth == 9) {
+lastDay = 30;
+} else if (personMonth == 10) {
+lastDay = 31;
+} else if (personMonth == 11) {
+lastDay = 30;
+} else if (personMonth == 12) {
+lastDay = 31;
+}
+
+if (personDay < 0) {
+personMonth--;
+personDay += lastDay;
+}
+
+if (personMonth < 0) {
+personYear--;
+personMonth += 12;
+}
+
+document.getElementById("yourYear").innerHTML = personYear;
+document.getElementById("yourMonth").innerHTML = personMonth;
+document.getElementById("yourDay").innerHTML = personDay;
+}
+
+</script>
+</html>
